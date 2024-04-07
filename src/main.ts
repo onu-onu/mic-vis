@@ -4,7 +4,6 @@ window.onload = () => {
 
 	const reloadBtn: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#reload-btn');
 	reloadBtn.addEventListener('click', () => {
-		console.log('click')
 		location.reload();
 	});
 
@@ -29,6 +28,13 @@ window.onload = () => {
 		}
 	}
 
+	function checkMicConnection(dataArray: Uint8Array): boolean {
+		dataArray.forEach(val => {
+			console.log(val);
+			if (val !== 0) return false;
+		});
+		return true;
+	}
 
 	const chart: Chart = new Chart();
 	const audioContext = new AudioContext();
@@ -53,6 +59,9 @@ window.onload = () => {
 			const bufferLength = analyserNode.frequencyBinCount;
 			const dataArray = new Uint8Array(bufferLength);
 
+			if (!checkMicConnection(dataArray)) {
+				location.reload();
+			}
 
 			function draw() {
 
