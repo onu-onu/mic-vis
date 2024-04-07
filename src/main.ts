@@ -30,7 +30,6 @@ window.onload = () => {
 
 	function checkMicConnection(dataArray: Uint8Array): boolean {
 		dataArray.forEach(val => {
-			console.log(val);
 			if (val !== 0) return true;
 		});
 		return false;
@@ -63,19 +62,8 @@ window.onload = () => {
 			let micConnErrorCount = 0
 
 			function draw() {
-
 				analyserNode.getByteFrequencyData(dataArray);
-
-
-				if (!checkMicConnection(dataArray)) {
-					micConnErrorCount++;
-					if (micConnErrorCount > 3) {
-						location.reload();
-					}
-				}
-
 				chart.draw(dataArray, bufferLength);
-
 				requestAnimationFrame(draw)
 			}
 
