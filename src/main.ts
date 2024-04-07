@@ -31,9 +31,9 @@ window.onload = () => {
 	function checkMicConnection(dataArray: Uint8Array): boolean {
 		dataArray.forEach(val => {
 			console.log(val);
-			if (val !== 0) return false;
+			if (val !== 0) return true;
 		});
-		return true;
+		return false;
 	}
 
 	const chart: Chart = new Chart();
