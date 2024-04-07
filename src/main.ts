@@ -59,13 +59,21 @@ window.onload = () => {
 			const bufferLength = analyserNode.frequencyBinCount;
 			const dataArray = new Uint8Array(bufferLength);
 
-			if (!checkMicConnection(dataArray)) {
-				location.reload();
-			}
+
+			let micConnErrorCount = 0
 
 			function draw() {
 
 				analyserNode.getByteFrequencyData(dataArray);
+
+
+				if (!checkMicConnection(dataArray)) {
+					micConnErrorCount++;
+					if (micConnErrorCount > 3) {
+						location.reload();
+					}
+				}
+
 				chart.draw(dataArray, bufferLength);
 
 				requestAnimationFrame(draw)
