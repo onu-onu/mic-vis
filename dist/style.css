@@ -1,0 +1,45 @@
+body {
+    background: #222;
+    margin: 0;
+    padding: 0;
+    color: #ddd;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 120%;
+}
+
+#main {
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+#cvs {
+    position: fixed;
+    top: 60px;
+    left: 50px;
+    background: #222;
+    display: none;
+}
+
+
+#loading {
+    position: fixed;
+    top: 60px;
+    left: 50px;
+    font-weight: normal;
+    padding: 10px 100px;
+}
+
+#reload-btn {
+    position: fixed;
+    top: 200px;
+    border: #ddd solid 1px;
+    border-radius: 4px;
+    background: #ddd;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#reload-btn:hover {
+    opacity: 0.5;
+}
