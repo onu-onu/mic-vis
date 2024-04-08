@@ -59,8 +59,8 @@ export class Chart {
 
 
     private drawSpectrum(freqList: number[], volume: number) {
-        let maxW: number = 150 * window.devicePixelRatio;
-        let h: number = 3 * window.devicePixelRatio;
+        let maxW: number = 280;
+        let h: number = 5;
         let margin = { top: 0, right: 2, bottom: 2, left: 2 };
 
         let stdVol: number = volume * freqList.length;
