@@ -4,7 +4,6 @@ body {
     padding: 0;
     color: #ddd;
     font-family: "Roboto", sans-serif;
-    font-weight: 700;
     font-size: 120%;
 }
 
@@ -23,6 +22,17 @@ div {
     margin-top: 20px;
     background: #222;
     display: none;
+    width: 200px;
+    height: 600px;
+}
+
+#conn-state {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #c90000;
+    transform: translate(0, 4px);
 }
 
 
@@ -49,4 +59,8 @@ div {
 #mic-name {
     font-weight: normal;
     font-size: 75%;
+}
+
+.info {
+    font-size: 60%;
 }

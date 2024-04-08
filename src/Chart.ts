@@ -14,28 +14,19 @@ export class Chart {
         cvs.style.width = this.width + 'px';
         cvs.style.height = this.height + 'px';
         cvs.style.display = 'block';
+
+        console.log(`DPR: ${dpr}`)
+        console.log(`canvas      : ${cvs.width} x ${cvs.height}`);
+        console.log(`canvas style: ${cvs.style.width} x ${cvs.style.height}`);
     }
 
 
     public draw(dataArray: Uint8Array, bufferLength: number) {
-        const volumeMax = 30;
         const freqList = this.normalization(dataArray, bufferLength);
         const volume = this.getVolume(dataArray, bufferLength);
 
         this.ctx.clearRect(0, 0, this.width, this.height);
-
-        
         this.drawSpectrum(freqList, volume);
-
-        // volume barの描画
-        this.ctx.save();
-        // this.ctx.translate(0, 80);
-        // this.ctx.fillStyle = '#444';
-        // this.drawVolumeBar(volumeMax);
-        // this.ctx.fillStyle = '#ddd';
-        // this.drawVolumeBar(volume);
-
-        this.ctx.restore();
     }
 
     private normalization(dataArray: Uint8Array, bufferLength: number) {

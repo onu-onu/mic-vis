@@ -1,12 +1,6 @@
 import { Chart } from "./Chart";
 
 window.onload = () => {
-
-	const reloadBtn: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#reload-btn');
-	reloadBtn.addEventListener('click', () => {
-		location.reload();
-	});
-
 	function setMicNameHtml(stream: any) {
 		const audioTracks = stream.getAudioTracks();
 		if (audioTracks.length > 0) {
@@ -28,12 +22,19 @@ window.onload = () => {
 		}
 	}
 
-	function checkMicConnection(dataArray: Uint8Array): boolean {
-		dataArray.forEach(val => {
-			if (val !== 0) return true;
-		});
-		return false;
+	function checkMicConnection(dataArray: Uint8Array, flag: boolean): boolean {
+		let tmp: number = flag ? 1 : 0; // TRUEなら1, FALSEなら0
+		dataArray.forEach(val => tmp += val);
+		return tmp !== 0;
 	}
+
+	
+	const reloadBtn: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#reload-btn');
+	reloadBtn.addEventListener('click', () => {
+		location.reload();
+	});
+
+	const connStateElem: HTMLElement = <HTMLElement>document.querySelector('#conn-state');
 
 	const chart: Chart = new Chart();
 	const audioContext = new AudioContext();
@@ -41,8 +42,18 @@ window.onload = () => {
 	navigator.mediaDevices.getUserMedia({ audio: true })
 		.then(function (stream) {
 
-			setMicNameHtml(stream);
+			function draw() {
+				analyserNode.getByteFrequencyData(dataArray);
 
+				isMicConn = checkMicConnection(dataArray, isMicConn);
+				console.log(isMicConn);
+				connStateElem.style.backgroundColor = isMicConn ? '#00bf46': '#c90000';
+
+				chart.draw(dataArray, bufferLength);
+				requestAnimationFrame(draw)
+			}
+
+			setMicNameHtml(stream);
 
 			// メディアストリームからオーディオソースノードを作成
 			const micInput = audioContext.createMediaStreamSource(stream);
@@ -58,16 +69,7 @@ window.onload = () => {
 			const bufferLength = analyserNode.frequencyBinCount;
 			const dataArray = new Uint8Array(bufferLength);
 
-
-			let micConnErrorCount = 0
-
-			function draw() {
-				analyserNode.getByteFrequencyData(dataArray);
-				chart.draw(dataArray, bufferLength);
-				requestAnimationFrame(draw)
-			}
-
-
+			let isMicConn: boolean = false;
 			draw();
 		})
 		.catch(function (err) {
