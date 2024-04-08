@@ -8,15 +8,19 @@ body {
     font-size: 120%;
 }
 
+div {
+    margin: 10px 0px;
+}
+
 #main {
-    margin-top: 30px;
-    margin-left: 50px;
+    margin-top: 20px;
 }
 
 #cvs {
-    position: fixed;
+    /* position: fixed;
     top: 80px;
-    left: 50px;
+    left: 50px; */
+    margin-top: 20px;
     background: #222;
     display: none;
 }
@@ -31,8 +35,6 @@ body {
 }
 
 #reload-btn {
-    position: fixed;
-    top: 200px;
     border: #ddd solid 1px;
     border-radius: 4px;
     background: #ddd;
